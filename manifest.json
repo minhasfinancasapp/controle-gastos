@@ -1,10 +1,16 @@
 {
-  "name": "Controle de Gastos Supabase",
-  "short_name": "Gastos",
-  "start_url": "index.html",
+  "name": "Controle de Gastos Cloud",
+  "short_name": "Gastos Cloud",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0f172a",
+  "background_color": "#eef2f7",
   "theme_color": "#2563eb",
-  "description": "App de controle de ganhos, gastos e investimentos com Supabase",
-  "icons": []
+  "description": "Controle de ganhos, gastos e investimentos na nuvem",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
 }

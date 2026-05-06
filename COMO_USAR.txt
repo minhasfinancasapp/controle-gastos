@@ -1,47 +1,62 @@
-CONTROLE DE GASTOS - VERSÃO SUPABASE
+COMO USAR - CONTROLE DE GASTOS CLOUD COM SUPABASE
 
-1) CRIAR CONTA NO SUPABASE
-Acesse https://supabase.com
-Clique em New Project
-Nome: controle-gastos
-Crie uma senha e aguarde o projeto ficar pronto.
+PASSO 1 - CRIAR PROJETO NO SUPABASE
+1. Acesse supabase.com
+2. Crie um projeto novo
+3. Aguarde o projeto ficar pronto
 
-2) CRIAR AS TABELAS
-No Supabase, vá em SQL Editor.
-Clique em New query.
-Abra o arquivo schema.sql desta pasta.
-Copie tudo, cole no SQL Editor e clique em Run.
+PASSO 2 - CRIAR AS TABELAS
+1. No menu lateral, clique em SQL Editor
+2. Clique em New query
+3. Abra o arquivo schema.sql deste ZIP
+4. Copie tudo
+5. Cole no SQL Editor
+6. Clique em Run
 
-3) PEGAR URL E CHAVE
-No Supabase, vá em Project Settings > API.
-Copie:
-- Project URL
-- anon public key
+PASSO 3 - ATIVAR LOGIN COM EMAIL
+1. Vá em Authentication
+2. Vá em Providers
+3. Ative Email
+4. Salve
 
-4) COLAR NO APP
-Abra o arquivo supabase-config.js no Bloco de Notas.
-Cole seus dados assim:
+DICA:
+Se quiser facilitar o primeiro teste, em Authentication > Providers > Email,
+desative a confirmação de e-mail, caso apareça essa opção.
 
-const SUPABASE_URL = "SUA_URL";
-const SUPABASE_ANON_KEY = "SUA_CHAVE_ANON_PUBLIC";
+PASSO 4 - PEGAR URL E CHAVE
+1. Vá em Project Settings
+2. Clique em API
+3. Copie:
+   - Project URL
+   - anon public key
 
-Salve o arquivo.
+PASSO 5 - CONFIGURAR O APP
+1. Abra o arquivo supabase-config.js
+2. Cole os dados assim:
 
-5) TESTAR NO COMPUTADOR
-Abra o index.html no navegador.
-Se aparecer "Conectado ao Supabase", está certo.
+const SUPABASE_URL = "SUA_PROJECT_URL";
+const SUPABASE_ANON_KEY = "SUA_ANON_PUBLIC_KEY";
 
-6) PUBLICAR NA NUVEM
-Você pode publicar no Netlify:
-- Acesse https://netlify.com
-- Add new site
-- Deploy manually
-- Arraste esta pasta inteira
+3. Salve o arquivo
 
-7) USAR NO CELULAR
-Depois de publicar no Netlify, abra o link no Chrome do celular.
-Toque nos três pontinhos > Adicionar à tela inicial.
+PASSO 6 - SUBIR NO GITHUB PAGES
+1. Envie todos os arquivos deste ZIP para o seu repositório:
+   - index.html
+   - supabase-config.js
+   - schema.sql
+   - manifest.json
+   - service-worker.js
+   - icon.svg
+   - COMO_USAR.txt
 
-IMPORTANTE
-Esta versão é para uso pessoal simples.
-Não compartilhe o link com outras pessoas, pois os dados usam uma chave pública do seu projeto.
+2. Aguarde o GitHub Pages atualizar
+
+PASSO 7 - TESTAR
+1. Abra o link do seu app
+2. Crie uma conta
+3. Entre
+4. Cadastre ganho, gasto ou investimento
+
+IMPORTANTE:
+Esta versão salva na nuvem.
+Você pode acessar do celular e computador usando o mesmo e-mail e senha.
