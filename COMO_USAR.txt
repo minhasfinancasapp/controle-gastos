@@ -1,10 +1,16 @@
-ATUALIZAÇÃO - CONTA PAGA
+ATUALIZAÇÃO - REVERTER PAGAMENTO
 
 O que mudou:
-- Gastos agora têm status: Pendente ou Pago.
-- Quando marcar como Pago, o valor sai de Gastos pendentes.
-- O valor entra no novo quadrado Total já pago.
-- O saldo disponível considera: Ganhos - Total já pago - Investimentos do mês.
+- Quando uma conta está PENDENTE, aparece: ✅ Marcar como pago.
+- Quando uma conta está PAGA, aparece: ↩️ Reverter para pendente.
+- Ao marcar como pago:
+  - Sai de Gastos pendentes.
+  - Entra em Total já pago.
+  - Grava data e hora do pagamento.
+- Ao reverter:
+  - Sai de Total já pago.
+  - Volta para Gastos pendentes.
+  - Remove a data de pagamento.
 
 PASSO 1:
 No Supabase, abra SQL Editor > New query.
@@ -13,7 +19,9 @@ PASSO 2:
 Abra o arquivo schema.sql deste ZIP, copie tudo e execute em Run.
 
 PASSO 3:
-Antes de enviar ao GitHub, confira o arquivo supabase-config.js com sua URL e Publishable key.
+Antes de enviar ao GitHub, abra supabase-config.js e coloque:
+const SUPABASE_URL = "https://seuprojeto.supabase.co";
+const SUPABASE_ANON_KEY = "sua_publishable_key";
 
 PASSO 4:
 Envie todos os arquivos para o GitHub Pages substituindo os antigos.

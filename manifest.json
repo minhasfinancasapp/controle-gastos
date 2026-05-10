@@ -5,7 +5,7 @@
   "display": "standalone",
   "background_color": "#eef2f7",
   "theme_color": "#2563eb",
-  "description": "Controle de ganhos, gastos e investimentos na nuvem",
+  "description": "Controle de ganhos, gastos, contas pagas e investimentos na nuvem",
   "icons": [
     {
       "src": "icon.svg",
