@@ -38,7 +38,7 @@ button{cursor:pointer;font-weight:bold}
 .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
 .tabs button{border:0;background:white;color:var(--texto);padding:12px;border-radius:14px;box-shadow:0 3px 10px rgba(0,0,0,.08)}
 .tabs button.active{background:var(--azul);color:white}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
 .card h3{margin:0 0 8px;font-size:14px;color:var(--cinza);font-weight:normal}
 .valor{font-size:22px;font-weight:bold}
 .verde{color:var(--verde)}
@@ -72,6 +72,7 @@ canvas{width:100%;max-height:280px;background:#f9fafb;border-radius:14px;padding
 }
 </style>
 </head>
+
 <body>
 <header>
   <h1>💰 Controle de Gastos</h1>
@@ -81,12 +82,16 @@ canvas{width:100%;max-height:280px;background:#f9fafb;border-radius:14px;padding
 <div id="login" class="login-box">
   <h2>Entrar no app</h2>
   <p class="small">Use e-mail e senha. Se for o primeiro acesso, clique em criar conta.</p>
+
   <label>E-mail</label>
   <input type="email" id="email" placeholder="seuemail@email.com">
+
   <label>Senha</label>
   <input type="password" id="senha" placeholder="mínimo 6 caracteres">
+
   <button class="primary" onclick="entrar()">Entrar</button>
   <button class="success" onclick="criarConta()">Criar conta</button>
+
   <p id="loginMsg" class="small"></p>
 </div>
 
@@ -110,20 +115,21 @@ canvas{width:100%;max-height:280px;background:#f9fafb;border-radius:14px;padding
 
   <div class="grid">
     <div class="card">
+      <h3>Ganhos disponíveis</h3>
+      <div id="totalGanhos" class="valor verde">R$ 0,00</div>
+    </div>
+    <div class="card">
       <h3>Gastos pendentes</h3>
       <div id="totalGastos" class="valor vermelho">R$ 0,00</div>
     </div>
-
     <div class="card">
       <h3>Total já pago</h3>
       <div id="totalPago" class="valor verde">R$ 0,00</div>
     </div>
-
     <div class="card">
       <h3>Saldo disponível</h3>
       <div id="saldoMes" class="valor azul">R$ 0,00</div>
     </div>
-
     <div class="card">
       <h3>Total guardado</h3>
       <div id="totalInvestido" class="valor laranja">R$ 0,00</div>
@@ -565,6 +571,9 @@ function atualizarTudo(){
   const ganhosDisponiveis=totalGanhos-totalPagos;
   const saldo=ganhosDisponiveis-totalInvMes;
 
+  document.getElementById("totalGanhos").innerText=dinheiro(ganhosDisponiveis);
+  document.getElementById("totalGanhos").className="valor "+(ganhosDisponiveis>=0 ? "verde" : "vermelho");
+
   document.getElementById("totalGastos").innerText=dinheiro(totalPend);
   document.getElementById("totalPago").innerText=dinheiro(totalPagos);
 
@@ -731,7 +740,7 @@ function exportarCSV(){
 
   const csv=linhas
     .map(l=>l.map(c=>`"${String(c).replaceAll('"','""')}"`).join(";"))
-    .join("\\n");
+    .join("\n");
 
   baixarArquivo(
     new Blob([csv],{type:"text/csv;charset=utf-8"}),
