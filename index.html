@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="title=device-width, initial-scale=1.0">
-<title>Controle de Gastos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle de Gastos Cloud</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#2563eb">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -28,7 +28,7 @@ input,select,button{width:100%;padding:12px;border-radius:12px;border:1px solid 
 </style>
 </head>
 <body>
-<header><h1>💰 Controle de Gastos </h1><p>Ganhos e Dispesas </p></header>
+<header><h1>💰 Controle de Gastos Cloud</h1><p>Ganhos, gastos, contas pagas, reversão e nuvem</p></header>
 
 <div id="login" class="login-box">
 <h2>Entrar no app</h2><p class="small">Use e-mail e senha. Se for o primeiro acesso, clique em criar conta.</p>
@@ -43,7 +43,7 @@ input,select,button{width:100%;padding:12px;border-radius:12px;border:1px solid 
 <div class="tabs"><button class="active" onclick="abrirAba('resumo',this)">Resumo</button><button onclick="abrirAba('ganhos',this)">Ganhos</button><button onclick="abrirAba('gastos',this)">Gastos</button><button onclick="abrirAba('investimentos',this)">Poupança</button></div>
 <div id="alerta" class="alerta"></div>
 <div class="grid">
-<div class="card"><h3>Ganhos do mês</h3><div id="totalGanhos" class="valor verde">R$ 0,00</div></div>
+<div class="card"><h3>Ganhos disponíveis</h3><div id="totalGanhos" class="valor verde">R$ 0,00</div></div>
 <div class="card"><h3>Gastos pendentes</h3><div id="totalGastos" class="valor vermelho">R$ 0,00</div></div>
 <div class="card"><h3>Total já pago</h3><div id="totalPago" class="valor verde">R$ 0,00</div></div>
 <div class="card"><h3>Saldo disponível</h3><div id="saldoMes" class="valor azul">R$ 0,00</div></div>
@@ -131,8 +131,10 @@ function soma(lista){return lista.reduce((t,i)=>t+Number(i.valor),0)}
 function atualizarTudo(){
  const ganhosMes=filtrarMes(dados.ganhos),gastosMes=filtrarMes(dados.gastos),investMes=filtrarMes(dados.investimentos);
  const pendentes=gastosMes.filter(g=>(g.status||"pendente")!=="pago"),pagos=gastosMes.filter(g=>(g.status||"pendente")==="pago");
- const totalGanhos=soma(ganhosMes),totalPend=soma(pendentes),totalPagos=soma(pagos),totalInvMes=soma(investMes),totalInv=soma(dados.investimentos),saldo=totalGanhos-totalPagos-totalInvMes;
- document.getElementById("totalGanhos").innerText=dinheiro(totalGanhos);document.getElementById("totalGastos").innerText=dinheiro(totalPend);document.getElementById("totalPago").innerText=dinheiro(totalPagos);document.getElementById("saldoMes").innerText=dinheiro(saldo);document.getElementById("saldoMes").className="valor "+(saldo>=0?"verde":"vermelho");document.getElementById("totalInvestido").innerText=dinheiro(totalInv);
+ const totalGanhos=soma(ganhosMes),totalPend=soma(pendentes),totalPagos=soma(pagos),totalInvMes=soma(investMes),totalInv=soma(dados.investimentos);
+ const ganhosDisponiveis=totalGanhos-totalPagos;
+ const saldo=ganhosDisponiveis-totalInvMes;
+ document.getElementById("totalGanhos").innerText=dinheiro(ganhosDisponiveis);document.getElementById("totalGanhos").className="valor "+(ganhosDisponiveis>=0?"verde":"vermelho");document.getElementById("totalGastos").innerText=dinheiro(totalPend);document.getElementById("totalPago").innerText=dinheiro(totalPagos);document.getElementById("saldoMes").innerText=dinheiro(saldo);document.getElementById("saldoMes").className="valor "+(saldo>=0?"verde":"vermelho");document.getElementById("totalInvestido").innerText=dinheiro(totalInv);
  renderLista("listaGanhos","ganhos",ganhosMes,"ganho");renderLista("listaGastos","gastos",gastosMes,"gasto");renderLista("listaInvestimentos","investimentos",investMes,"investimento");atualizarMeta(totalPend);desenharGrafico(pendentes)
 }
 function renderLista(id,tipo,lista,classe){
